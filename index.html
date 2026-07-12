@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+<title>연구 워크숍 · 2026 과학기술연구사업단</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF1EA;
+    --paper-2:#F8F8F3;
+    --ink:#1E2A22;
+    --ink-soft:#5C6B5F;
+    --lake:#2C6E8E;
+    --forest:#2F5233;
+    --gold:#C79A46;
+    --line:#D7DACC;
+    --white:#FFFFFF;
+    --radius:14px;
+    --serif:'Noto Serif KR', serif;
+    --sans:'Noto Sans KR', -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+  a{color:inherit;}
+  .wrap{max-width:860px;margin:0 auto;padding:0 28px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding-top:76px;padding-bottom:48px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-120px;right:-120px;
+    width:320px;height:320px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(199,154,70,.22), transparent 70%);
+    pointer-events:none;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;letter-spacing:.06em;
+    color:var(--forest);
+    background:rgba(47,82,51,.08);
+    padding:6px 12px;border-radius:999px;
+    margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);}
+  h1{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(16px,4.9vw,38px);
+    line-height:1.3;
+    margin:0 0 18px;
+    letter-spacing:-.01em;
+    word-break:keep-all;
+  }
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:10px 28px;
+    font-size:14.5px;color:var(--ink-soft);
+    border-top:1px solid var(--line);
+    padding-top:20px;margin-top:26px;
+  }
+  .hero-meta b{color:var(--ink);font-weight:600;}
+  .hero-meta span{display:flex;align-items:baseline;gap:6px;}
+
+  /* ---------- SECTION LABELS ---------- */
+  .section{padding-top:56px;padding-bottom:56px;border-top:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:30px;}
+  .section-num{
+    font-family:var(--serif);font-weight:600;font-size:14px;
+    color:var(--gold);letter-spacing:.08em;
+  }
+  .section-title{font-family:var(--serif);font-weight:700;font-size:23px;margin:0;}
+  .section-sub{font-size:13.5px;color:var(--ink-soft);margin:4px 0 0;}
+
+  /* ---------- ROUTE (signature elevation line) ---------- */
+  .route-chips{
+    display:flex;overflow-x:auto;gap:0;
+    padding:6px 4px 12px;margin:0 -4px;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;
+  }
+  .route-chip{
+    flex:0 0 92px;text-align:center;padding:0 4px;
+    scroll-snap-align:start;
+  }
+  .rc-time{display:block;font-family:var(--serif);font-weight:700;font-size:13px;color:var(--ink);}
+  .rc-dot-wrap{position:relative;height:22px;display:flex;align-items:center;justify-content:center;}
+  .rc-dot-wrap::after{
+    content:"";position:absolute;left:50%;top:50%;transform:translateY(-50%);
+    width:100%;height:1px;background:var(--line);z-index:0;
+  }
+  .route-chip:last-child .rc-dot-wrap::after{display:none;}
+  .rc-dot{
+    position:relative;z-index:1;width:8px;height:8px;border-radius:50%;
+    background:var(--white);border:2px solid var(--forest);
+  }
+  .route-chip.peak .rc-dot{background:var(--gold);border-color:var(--gold);}
+  .route-chip.peak .rc-time{color:var(--gold);}
+  .rc-label{display:block;font-size:12px;color:var(--ink-soft);margin-top:8px;line-height:1.3;word-break:keep-all;}
+  .route-caption{font-size:12.5px;color:var(--ink-soft);margin-top:6px;}
+
+  /* ---------- TIMELINE ---------- */
+  .day-tag{
+    display:inline-block;font-family:var(--serif);font-weight:600;font-size:14px;
+    background:var(--forest);color:var(--paper-2);
+    padding:5px 14px;border-radius:8px;margin-bottom:22px;
+  }
+  .timeline{position:relative;}
+  .timeline::before{
+    content:"";position:absolute;left:87px;top:6px;bottom:6px;width:1px;
+    background:var(--line);
+  }
+  .t-item{
+    position:relative;
+    display:grid;
+    grid-template-columns:76px 1fr;
+    gap:22px;
+    padding:16px 0;
+  }
+  .t-item.transfer{opacity:.72;}
+  .t-item.transfer .t-title{font-weight:500;font-size:14.5px;}
+  .t-time{
+    font-family:var(--serif);font-weight:600;font-size:12.5px;color:var(--ink);
+    text-align:right;padding-top:2px;padding-right:6px;white-space:pre-line;line-height:1.5;
+  }
+  .t-item::after{
+    content:"";position:absolute;left:84px;top:22px;width:7px;height:7px;
+    border-radius:50%;background:var(--white);border:2px solid var(--forest);
+  }
+  .t-item.transfer::after{border-color:var(--ink-soft);width:5px;height:5px;left:85px;}
+  .t-body{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:14px 18px;
+  }
+  .t-item.transfer .t-body{background:transparent;border:none;padding:2px 0 2px 2px;}
+  .t-title{font-weight:700;font-size:15.5px;margin:0 0 4px;}
+  .t-detail{font-size:13px;color:var(--ink-soft);margin:0;display:flex;flex-wrap:wrap;gap:4px 10px;}
+  .t-map{
+    display:inline-flex;align-items:center;gap:4px;
+    font-size:12px;font-weight:600;color:var(--lake);
+    text-decoration:none;margin-top:8px;
+  }
+  .t-map:hover{text-decoration:underline;}
+
+  /* ---------- PLACES ---------- */
+  .places-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  .place-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;display:flex;flex-direction:column;gap:10px;
+  }
+  .place-photo{
+    width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--paper);
+  }
+  .place-photo.placeholder{
+    display:flex;align-items:center;justify-content:center;
+    color:var(--ink-soft);font-size:12px;
+  }
+  .place-body{padding:0 18px 18px;display:flex;flex-direction:column;gap:10px;flex-grow:1;}
+  .place-tag{font-size:11.5px;font-weight:700;color:var(--forest);letter-spacing:.03em;}
+  .place-name{font-family:var(--serif);font-weight:700;font-size:16.5px;margin:0;}
+  .place-desc{font-size:13px;color:var(--ink-soft);margin:0;flex-grow:1;}
+  .place-link{
+    align-self:flex-start;
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:12.5px;font-weight:700;color:var(--lake);
+    border:1px solid var(--lake);border-radius:999px;
+    padding:6px 12px;text-decoration:none;
+  }
+  .place-link:hover{background:var(--lake);color:var(--white);}
+
+  footer{
+    padding:40px 0 60px;
+    text-align:center;font-size:12.5px;color:var(--ink-soft);
+    border-top:1px solid var(--line);
+  }
+
+  .weather-row{
+    display:flex;
+    overflow-x:auto;
+    gap:10px;
+    margin-top:18px;
+    padding-bottom:6px;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;
+  }
+  .weather-card{
+    flex:0 0 100px;
+    scroll-snap-align:start;
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 10px;text-align:center;
+  }
+  .weather-card .w-time{font-size:12px;font-weight:700;color:var(--ink-soft);}
+  .weather-card .w-icon{font-size:26px;margin:8px 0 4px;}
+  .weather-card .w-temp{font-family:var(--serif);font-weight:700;font-size:18px;}
+  .weather-card .w-pop{font-size:11.5px;color:var(--lake);margin-top:4px;}
+  .weather-card .w-label{font-size:11px;color:var(--ink-soft);margin-top:2px;word-break:keep-all;}
+
+  @media (max-width:640px){
+    .places-grid{grid-template-columns:1fr;}
+    .hero{padding-top:56px;padding-bottom:36px;}
+    .section{padding-top:44px;padding-bottom:44px;}
+    .timeline::before{left:69px;}
+    .t-item{grid-template-columns:60px 1fr;gap:16px;}
+    .t-item::after{left:66px;}
+    .t-item.transfer::after{left:67px;}
+    .t-time{padding-right:4px;}
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
+    .reveal.show{opacity:1;transform:none;}
+  }
+  /* 01 동선 개요 : 모든 텍스트 black */
+  #route .section-num,
+  #route .section-title,
+  #route .rc-time,
+  #route .route-chip.peak .rc-time,
+  #route .rc-label,
+  #route .route-caption{
+    color:#000;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <h1>'26 Summer STRC Workshop</h1>
+  <div class="hero-meta">
+    <span>📅 <b>2026.07.14 (화)</b> · 당일</span>
+    <span>📍 <b>춘천 일원</b></span>
+  </div>
+</header>
+
+<section class="section wrap" id="route">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <div>
+      <h2 class="section-title">동선 개요</h2>
+    </div>
+  </div>
+
+  <div class="route-chips">
+    <div class="route-chip">
+      <span class="rc-time">08:30</span>
+      <span class="rc-dot-wrap"><span class="rc-dot"></span></span>
+      <span class="rc-label">출발</span>
+    </div>
+    <div class="route-chip">
+      <span class="rc-time">10:00</span>
+      <span class="rc-dot-wrap"><span class="rc-dot"></span></span>
+      <span class="rc-label">이상원미술관</span>
+    </div>
+    <div class="route-chip">
+      <span class="rc-time">12:00</span>
+      <span class="rc-dot-wrap"><span class="rc-dot"></span></span>
+      <span class="rc-label">중식</span>
+    </div>
+    <div class="route-chip peak">
+      <span class="rc-time">13:10</span>
+      <span class="rc-dot-wrap"><span class="rc-dot"></span></span>
+      <span class="rc-label">산토리니</span>
+    </div>
+    <div class="route-chip">
+      <span class="rc-time">14:40</span>
+      <span class="rc-dot-wrap"><span class="rc-dot"></span></span>
+      <span class="rc-label">춘천박물관</span>
+    </div>
+    <div class="route-chip">
+      <span class="rc-time">16:20</span>
+      <span class="rc-dot-wrap"><span class="rc-dot"></span></span>
+      <span class="rc-label">케이블카</span>
+    </div>
+    <div class="route-chip">
+      <span class="rc-time">18:00</span>
+      <span class="rc-dot-wrap"><span class="rc-dot"></span></span>
+      <span class="rc-label">석식</span>
+    </div>
+    <div class="route-chip">
+      <span class="rc-time">19:00</span>
+      <span class="rc-dot-wrap"><span class="rc-dot"></span></span>
+      <span class="rc-label">복귀</span>
+    </div>
+  </div>
+  <p class="route-caption">← 옆으로 밀어 전체 동선을 확인하세요</p>
+</section>
+
+<section class="section wrap" id="sched">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <div>
+      <h2 class="section-title">세부 일정</h2>
+    </div>
+  </div>
+
+  <span class="day-tag">07.14 화 · 연구 워크숍</span>
+
+  <div class="timeline">
+
+    <div class="t-item">
+      <div class="t-time">08:30</div>
+      <div class="t-body">
+        <p class="t-title">출발</p>
+        <p class="t-detail">@108동 앞</p>
+      </div>
+    </div>
+
+    <div class="t-item transfer">
+      <div class="t-time">08:30&#10;–10:00</div>
+      <div class="t-body">
+        <p class="t-title">이동 · 이상원 미술관 방향</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-time">10:00&#10;–11:30</div>
+      <div class="t-body">
+        <p class="t-title">관람 및 토의</p>
+        <p class="t-detail">@이상원 미술관</p>
+        <a class="t-map" href="https://naver.me/GpCzUTc7" target="_top">📍 네이버 지도에서 보기</a>
+      </div>
+    </div>
+
+    <div class="t-item transfer">
+      <div class="t-time">11:30&#10;–12:00</div>
+      <div class="t-body">
+        <p class="t-title">이동 · 통나무집 닭갈비 본점 방향</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-time">12:00&#10;–13:00</div>
+      <div class="t-body">
+        <p class="t-title">중식</p>
+        <p class="t-detail">@통나무집 닭갈비 본점</p>
+        <a class="t-map" href="https://naver.me/GPdotE5B" target="_top">📍 네이버 지도에서 보기</a>
+      </div>
+    </div>
+
+    <div class="t-item transfer">
+      <div class="t-time">13:00&#10;–13:10</div>
+      <div class="t-body">
+        <p class="t-title">이동 · 산토리니 방향</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-time">13:10&#10;–14:30</div>
+      <div class="t-body">
+        <p class="t-title">연구 토의</p>
+        <p class="t-detail">@산토리니 (구봉산 전망대 카페거리)</p>
+        <a class="t-map" href="https://naver.me/GXApENPV" target="_top">📍 네이버 지도에서 보기</a>
+      </div>
+    </div>
+
+    <div class="t-item transfer">
+      <div class="t-time">14:30&#10;–14:40</div>
+      <div class="t-body">
+        <p class="t-title">이동 · 국립춘천박물관 방향</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-time">14:40&#10;–16:00</div>
+      <div class="t-body">
+        <p class="t-title">관람 및 토의</p>
+        <p class="t-detail">@국립춘천박물관</p>
+        <a class="t-map" href="https://naver.me/FfeOQghB" target="_top">📍 네이버 지도에서 보기</a>
+      </div>
+    </div>
+
+    <div class="t-item transfer">
+      <div class="t-time">16:00&#10;–16:20</div>
+      <div class="t-body">
+        <p class="t-title">이동 · 삼악산 호수케이블카 방향</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-time">16:20&#10;–17:30</div>
+      <div class="t-body">
+        <p class="t-title">삼악산 호수케이블카 탑승</p>
+        <a class="t-map" href="https://naver.me/GL8iBx1m" target="_top">📍 네이버 지도에서 보기</a>
+      </div>
+    </div>
+
+    <div class="t-item transfer">
+      <div class="t-time">17:30&#10;–18:00</div>
+      <div class="t-body">
+        <p class="t-title">이동 · 델씨엘로 가평청평본점 방향</p>
+      </div>
+    </div>
+
+    <div class="t-item">
+      <div class="t-time">18:00&#10;–19:00</div>
+      <div class="t-body">
+        <p class="t-title">석식</p>
+        <p class="t-detail">@델씨엘로 가평청평본점</p>
+        <a class="t-map" href="https://naver.me/5k7fNFXU" target="_top">📍 네이버 지도에서 보기</a>
+      </div>
+    </div>
+
+    <div class="t-item transfer">
+      <div class="t-time">19:00&#10;–19:40</div>
+      <div class="t-body">
+        <p class="t-title">복귀 · 육사 방향</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section wrap" id="places">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <div>
+      <h2 class="section-title">주요 방문지</h2>
+      <p class="section-sub">네이버 지도 링크 모음</p>
+    </div>
+  </div>
+
+  <div class="places-grid">
+    <div class="place-card">
+      <img class="place-photo" src="photos/1-isangwon.jpg" alt="이상원 미술관">
+      <div class="place-body">
+        <span class="place-tag">관람</span>
+        <p class="place-name">이상원 미술관</p>
+        <p class="place-desc">오전 관람 및 팀 토의</p>
+        <a class="place-link" href="https://naver.me/GpCzUTc7" target="_top">N 지도에서 열기</a>
+      </div>
+    </div>
+    <div class="place-card">
+      <img class="place-photo" src="photos/2-tongnamu.jpg" alt="통나무집 닭갈비 본점">
+      <div class="place-body">
+        <span class="place-tag">중식</span>
+        <p class="place-name">통나무집 닭갈비 본점</p>
+        <p class="place-desc">점심 식사</p>
+        <a class="place-link" href="https://naver.me/GPdotE5B" target="_top">N 지도에서 열기</a>
+      </div>
+    </div>
+    <div class="place-card">
+      <img class="place-photo" src="photos/3-santorini.jpg" alt="산토리니">
+      <div class="place-body">
+        <span class="place-tag">전망 · 토의</span>
+        <p class="place-name">산토리니</p>
+        <p class="place-desc">구봉산 전망대 카페거리 · 연구 토의</p>
+        <a class="place-link" href="https://naver.me/GXApENPV" target="_top">N 지도에서 열기</a>
+      </div>
+    </div>
+    <div class="place-card">
+      <img class="place-photo" src="photos/4-chuncheon-museum.jpg" alt="국립춘천박물관">
+      <div class="place-body">
+        <span class="place-tag">관람</span>
+        <p class="place-name">국립춘천박물관</p>
+        <p class="place-desc">오후 관람 및 토의</p>
+        <a class="place-link" href="https://naver.me/FfeOQghB" target="_top">N 지도에서 열기</a>
+      </div>
+    </div>
+    <div class="place-card">
+      <img class="place-photo" src="photos/5-cablecar.jpg" alt="삼악산 호수케이블카">
+      <div class="place-body">
+        <span class="place-tag">액티비티</span>
+        <p class="place-name">삼악산 호수케이블카</p>
+        <p class="place-desc">의암호 조망 케이블카 탑승</p>
+        <a class="place-link" href="https://naver.me/GL8iBx1m" target="_top">N 지도에서 열기</a>
+      </div>
+    </div>
+    <div class="place-card">
+      <img class="place-photo" src="photos/6-delcielo.jpg" alt="델씨엘로 가평청평본점">
+      <div class="place-body">
+        <span class="place-tag">석식</span>
+        <p class="place-name">델씨엘로 가평청평본점</p>
+        <p class="place-desc">저녁 식사</p>
+        <a class="place-link" href="https://naver.me/5k7fNFXU" target="_top">N 지도에서 열기</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" id="weather">
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <div>
+      <h2 class="section-title">날씨</h2>
+      <p class="section-sub">춘천 · 2026.07.14 (화) · Open-Meteo 실시간 예보</p>
+    </div>
+  </div>
+
+  <div id="weather-status" style="font-size:13px;color:var(--ink-soft);">예보 불러오는 중…</div>
+  <div id="weather-row" class="weather-row"></div>
+</section>
+
+<footer class="wrap">
+  '26년 과학기술연구사업단 연구 워크숍 · 2026.07.14 (화)
+</footer>
+
+<script>
+  if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    document.querySelectorAll('.t-item, .place-card').forEach(el => el.classList.add('reveal'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }
+
+  // ---- 실시간 날씨 (Open-Meteo, 춘천) ----
+  (function () {
+    const statusEl = document.getElementById('weather-status');
+    const rowEl = document.getElementById('weather-row');
+
+    const stops = [
+      { time: '08:30', hour: '08:00', label: '출발' },
+      { time: '10:00', hour: '10:00', label: '이상원미술관' },
+      { time: '12:00', hour: '12:00', label: '중식' },
+      { time: '13:10', hour: '13:00', label: '산토리니' },
+      { time: '14:40', hour: '15:00', label: '춘천박물관' },
+      { time: '16:20', hour: '16:00', label: '케이블카' },
+      { time: '18:00', hour: '18:00', label: '석식' },
+      { time: '19:00', hour: '19:00', label: '복귀' },
+    ];
+
+    function weatherIcon(code) {
+      if (code === 0) return ['☀️', '맑음'];
+      if ([1, 2].includes(code)) return ['🌤️', '대체로 맑음'];
+      if (code === 3) return ['☁️', '흐림'];
+      if ([45, 48].includes(code)) return ['🌫️', '안개'];
+      if ([51, 53, 55, 56, 57].includes(code)) return ['🌦️', '이슬비'];
+      if ([61, 63, 65, 66, 67].includes(code)) return ['🌧️', '비'];
+      if ([80, 81, 82].includes(code)) return ['🌦️', '소나기'];
+      if ([71, 73, 75, 77, 85, 86].includes(code)) return ['🌨️', '눈'];
+      if ([95, 96, 99].includes(code)) return ['⛈️', '뇌우'];
+      return ['🌡️', '-'];
+    }
+
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=37.8813&longitude=127.7298'
+      + '&hourly=temperature_2m,precipitation_probability,weathercode'
+      + '&timezone=Asia%2FSeoul&start_date=2026-07-14&end_date=2026-07-14';
+
+    fetch(url)
+      .then(res => { if (!res.ok) throw new Error('fetch failed'); return res.json(); })
+      .then(data => {
+        const times = data.hourly.time; // "2026-07-14T08:00" ...
+        const temps = data.hourly.temperature_2m;
+        const pops = data.hourly.precipitation_probability;
+        const codes = data.hourly.weathercode;
+
+        const cards = stops.map(stop => {
+          const idx = times.findIndex(t => t.endsWith('T' + stop.hour));
+          if (idx === -1) return null;
+          const [icon, desc] = weatherIcon(codes[idx]);
+          return `
+            <div class="weather-card">
+              <div class="w-time">${stop.time}</div>
+              <div class="w-icon">${icon}</div>
+              <div class="w-temp">${Math.round(temps[idx])}°</div>
+              <div class="w-pop">강수 ${pops[idx]}%</div>
+              <div class="w-label">${stop.label}</div>
+            </div>`;
+        }).filter(Boolean).join('');
+
+        if (!cards) throw new Error('no matching hours');
+        rowEl.innerHTML = cards;
+        statusEl.textContent = '';
+      })
+      .catch(() => {
+        statusEl.textContent = '날씨 정보를 불러오지 못했습니다. 페이지를 새로고침해 보세요.';
+      });
+  })();
+</script>
+
+</body>
+</html>
